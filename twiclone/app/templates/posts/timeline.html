@@ -1,0 +1,26 @@
+<!doctype html><html lang="uk"><head>
+<meta charset="utf-8"><title>Twiclone</title>
+<style>
+body{font-family:system-ui,Arial,sans-serif;max-width:720px;margin:24px auto;padding:0 12px}
+form{border:1px solid #ddd;padding:12px;border-radius:8px;margin-bottom:16px}
+.post{border-bottom:1px solid #eee;padding:12px 0}.post img{max-width:100%;border-radius:8px;margin-top:8px}
+.meta{color:#777;font-size:12px}
+</style></head><body>
+<h1>Twiclone</h1>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div>{{ form.text }}</div>
+  <div style="margin-top:8px">{{ form.image }}</div>
+  <button type="submit" style="margin-top:8px">Надіслати</button>
+</form>
+
+{% for p in posts %}
+  <div class="post">
+    <div>{{ p.text|linebreaksbr }}</div>
+    {% if p.image %}<img src="{{ p.image.url }}" alt="">{% endif %}
+    <div class="meta">{{ p.created_at }}</div>
+  </div>
+{% empty %}
+  <p>Поки що немає постів.</p>
+{% endfor %}
+</body></html>
